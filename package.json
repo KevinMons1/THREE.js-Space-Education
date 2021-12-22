@@ -1,0 +1,29 @@
+{
+  "name": "space-education",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html --no-minify"
+  },
+  "staticFiles": {
+    "staticPath": "public",
+    "watcherGlob": "**"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dat.gui": "^0.7.7",
+    "gsap": "^3.8.0",
+    "parcel": "^2.0.1",
+    "parcel-bundler": "^1.12.5",
+    "parcel-plugin-static-files-copy": "^2.6.0",
+    "three": "^0.134.0"
+  },
+  "devDependencies": {
+    "@parcel/transformer-glsl": "^2.0.1",
+    "@parcel/transformer-sass": "^2.0.1"
+  }
+}
