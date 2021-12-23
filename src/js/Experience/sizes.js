@@ -1,5 +1,5 @@
 import { camera } from "./camera"
-import { getPositionInRelationToScreen, modelgroup, planetsPosition } from "./model"
+import { getPositionInRelationToScreen, modelgroup } from "./model"
 import { renderer } from "./renderer"
 
 export let sizes = {}
@@ -31,8 +31,10 @@ export const initSize = () => {
 
 export const givePosition = () => {
     modelgroup.children.forEach((child, i) => {
-        const position = getPositionInRelationToScreen(child.positionNormalize)
-        child.position.set(position.x, position.y, child.positionNormalize.z)
+        if (!child.sectionMore) {
+            const position = getPositionInRelationToScreen(child.positionNormalize)
+            child.position.set(position.x, position.y, child.positionNormalize.z)
+        }
     })
 }
 

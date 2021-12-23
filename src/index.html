@@ -15,43 +15,61 @@
 
     <div class="wrapper">
         <header>
-            <p>space<span>edu</span></p>
-            <nav>
-                <ul>
-                    <li><a href="#" class="nav-active">Planets</a></li>
-                    <li><a href="#">Trailer</a></li>
-                    <li><a href="#">Tickets</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><button class="btn-style">Enroll</button></li>
-                </ul>
-            </nav>
+            <div class="header-content">
+                <p>space<span>edu</span></p>
+                <nav>
+                    <ul>
+                        <li><a href="#" class="nav-active">Planets</a></li>
+                        <li><a href="#">Trailer</a></li>
+                        <li><a href="#">Tickets</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><button class="btn-style">Enroll</button></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="header-line"></div>
         </header>
     
         <main>
-            <aside class="nextPlanet-content nextPlanet-right">
-                <div>
-                    <button name="nextPlanetRight"></button>
-                    <span class="nextPlanet-name nextPlanet-name-right">MARS</span>
+            <section class="section-title">
+                <aside class="nextPlanet-content nextPlanet-right">
+                    <div>
+                        <button name="nextPlanetRight"></button>
+                        <span class="nextPlanet-name nextPlanet-name-right">MARS</span>
+                    </div>
+                </aside>
+                <aside class="nextPlanet-content nextPlanet-left">
+                    <div>
+                        <button name="nextPlanetLeft"></button>
+                        <span class="nextPlanet-name nextPlanet-name-left">NEPTUNE</span>
+                    </div>
+                </aside>
+                <div class="title-content">
+                        <h1>PLANET</h1>
+                        <h2 class="title-h2">EARTH</h2>
+                        <div class="blue-line"></div>
+                        <p class="title-text">Learn more about this facinating miracle that we call our home, Planet Earth. Course enrollment
+                        starts today. Early Bird tickets typically last a week, don't miss out!</p>
+                        <button class="btn-style getStarted">GET STARTED</button>
                 </div>
-            </aside>
-            <aside class="nextPlanet-content nextPlanet-left">
-                <div>
-                    <button name="nextPlanetLeft"></button>
-                    <span class="nextPlanet-name nextPlanet-name-left">NEPTUNE</span>
-                </div>
-            </aside>
-
-            <div class="title">
-                <h1>PLANET</h1>
-                <h2>EARTH</h2>
-                <div class="title-line"></div>
-                <p>Learn more about this facinating miracle that we call our home, Planet Earth. Course enrollment
-                starts today. Early Bird tickets typically last a week, don't miss out!</p>
-                <button class="btn-style getStarted">GET STARTED</button>
-            </div>
+            </section>
+    
+            <section class="section-learnMore">
+               <div class="learnMore-content">
+                    <h3>THE BLUE PLANET</h3>
+                    <h4>EARTH</h4>
+                    <div class="blue-line"></div>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis exercitationem eligendi doloribus quibusdam accusantium velit deleniti consequuntur harum facilis odio recusandae ducimus odit sequi dignissimos reiciendis magnam iure voluptatibus, aliquam iusto tenetur id magni, beatae provident alias. Voluptates, quibusdam neque perspiciatis dolorem repellat ab incidunt cumque, nam exercitationem blanditiis magni.</p>
+                    <div class="learnMore-btn">
+                        <button class="btn-style btn-more">LEARN MORE</button>
+                        <button class="btn-style btn-play">X</button>
+                    </div>
+               </div>
+            </section>
         </main>
     </div>
     
     <script src="./js/index.js" type="module"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.0/CustomEase.min.js"></script>
 </body>
 </html>

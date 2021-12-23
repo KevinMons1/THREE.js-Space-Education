@@ -5,7 +5,9 @@ import { scene } from "./world"
 import { loadingManager } from "./loading"
 import { camera } from "./camera"
 import { givePosition } from "./sizes"
+import { myEasing } from "../main"
 
+// Export
 export let modelgroup = new THREE.Group()
 export let planetsPosition = [
     {x: 0, y: -0.15, z: 9.25},
@@ -17,8 +19,20 @@ export let planetsPosition = [
     {x: 0, y: 0, z: -100},
     {x: -1, y: 0, z: 0}
 ]
+
+// Globale variable
 const colors = ["#a83232", "#b06035", "#242423", "#8da832", "#082e00", "#2ba675", "#282ca6", "#8f2aa8"]
 const names = ["EARTH", "MARS", "SUN", "VENUS", "URANUS", "MERCURY", "SATURN", "NEPTUNE"]
+const littleDescriptions = [
+    "Learn more about this facinating miracle that we call our home, Planet Earth. Course enrollment starts today. Early Bird tickets typically last a week, don't miss out!",
+    "Mars is the fourth planet from the Sun and the second-smallest planet in the Solar System, being larger than only Mercury. In English, Mars carries the name of the Roman god of war and is often referred to as the 'Red Planet'",
+    "The Sun is the star at the center of the Solar System. It is a nearly perfect ball of hot plasma, heated to incandescence by nuclear fusion reactions in its core, radiating the energy mainly as visible light, ultraviolet light, and infrared radiation",
+    "Venus is the second planet from the Sun. It is named after the Roman goddess of love and beauty. As the brightest natural object in Earth's night sky after the Moon, Venus can cast shadows and can be visible to the naked eye in broad daylight",
+    "Uranus is the seventh planet from the Sun. Its name is a reference to the Greek god of the sky, Uranus, who, according to Greek mythology, was the great-grandfather of Ares (Mars), grandfather of Zeus (Jupiter) and father of Cronus (Saturn).",
+    "Mercury is the smallest planet in the Solar System and the closest to the Sun. Its orbit around the Sun takes 87.97 Earth days, the shortest of all the Sun's planets.",
+    "Saturn is the sixth planet from the Sun and the second-largest in the Solar System, after Jupiter. It is a gas giant with an average radius of about nine and a half times that of Earth.",
+    "Neptune is the eighth and farthest-known Solar planet from the Sun. In the Solar System, it is the fourth-largest planet by diameter, the third-most-massive planet, and the densest giant planet.",
+]
 
 // Download model
 export const initModel = () => {
@@ -64,7 +78,7 @@ export const initModel = () => {
     // )
 
     for (let i = 0; i < colors.length; i++) {
-        createSphere(colors[i], planetsPosition[i], names[i])
+        createSphere(colors[i], planetsPosition[i], names[i], littleDescriptions[i])
     }
  
     setTimeout(() => {
@@ -73,7 +87,6 @@ export const initModel = () => {
 
     scene.add(modelgroup)
 }
-
 
 // const loadModel = (path, scale, position) => {
 //     const gltfLoader = new GLTFLoader(loadingManager)
@@ -88,13 +101,15 @@ export const initModel = () => {
 //     })
 // }
 
-const createSphere = (color, position, name) => {
+const createSphere = (color, position, name, description) => {
     const geometry = new THREE.SphereBufferGeometry(1, 32, 100)
     const material = new THREE.MeshBasicMaterial({ color: color })
 
     const mesh = new THREE.Mesh(geometry, material)
     mesh.positionNormalize = position
     mesh.name = name
+    mesh.littleDescription = description
+    mesh.sectionMore = false
 
     modelgroup.add(mesh)
 }
@@ -112,5 +127,45 @@ export const getPositionInRelationToScreen = (position) => {
     var distance = - camera.position.z / dir.z
     var pos = camera.position.clone().add( dir.multiplyScalar( distance ) )
     return pos
+}
+
+export const planetsAnimationScroll = (direction) => {
+    modelgroup.children.forEach((child, i) => {
+        if (direction === "bottom" && !child.sectionMore) {
+            if (child.positionNormalize.y === 0) {
+                gsap.to(child.position, {
+                    y: 10,
+                    duration: 1,
+                    ease: myEasing,
+                    
+                })
+            } else {
+                const position = getPositionInRelationToScreen({x: 0.09, y: 0})
+                gsap.to(child.position, {
+                    x: position.x,
+                    y: 0,
+                    z: 7.5,
+                    duration: 1,
+                    ease: myEasing,
+                })
+            }
+
+            child.sectionMore = true
+
+        } else if (direction === "top" && child.sectionMore) {
+            const position = getPositionInRelationToScreen(child.positionNormalize)
+
+            gsap.to(child.position, {
+                x: position.x,
+                y: position.y,
+                z: child.positionNormalize.z,
+                duration: 1,
+                ease: myEasing,
+                
+            })
+
+            child.sectionMore = false
+        }
+    })
 }
 
