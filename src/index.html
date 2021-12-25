@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./styles/app.scss">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 
@@ -32,13 +33,13 @@
     
         <main>
             <section class="section-title">
-                <aside class="nextPlanet-content nextPlanet-right">
+                <aside class="nextPlanet-content nextPlanet-right btnNextPlanetRight">
                     <div>
                         <button name="nextPlanetRight"></button>
                         <span class="nextPlanet-name nextPlanet-name-right">MARS</span>
                     </div>
                 </aside>
-                <aside class="nextPlanet-content nextPlanet-left">
+                <aside class="nextPlanet-content nextPlanet-left btnNextPlanetLeft">
                     <div>
                         <button name="nextPlanetLeft"></button>
                         <span class="nextPlanet-name nextPlanet-name-left">NEPTUNE</span>
@@ -50,19 +51,23 @@
                         <div class="blue-line"></div>
                         <p class="title-text">Learn more about this facinating miracle that we call our home, Planet Earth. Course enrollment
                         starts today. Early Bird tickets typically last a week, don't miss out!</p>
-                        <button class="btn-style getStarted">GET STARTED</button>
+                        <div class="title-btn-content">
+                            <button class="btn-change btnNextPlanetLeft"><i class="fas fa-arrow-left"></i></button>
+                            <button class="btn-style getStarted">GET STARTED</button>
+                            <button class="btn-change btnNextPlanetRight"><i class="fas fa-arrow-right"></i></button>
+                        </div>
                 </div>
             </section>
     
             <section class="section-learnMore">
                <div class="learnMore-content">
-                    <h3>THE BLUE PLANET</h3>
-                    <h4>EARTH</h4>
+                    <h3 class="learnMore-title"></h3>
+                    <h4 class="learnMore-name"></h4>
                     <div class="blue-line"></div>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis exercitationem eligendi doloribus quibusdam accusantium velit deleniti consequuntur harum facilis odio recusandae ducimus odit sequi dignissimos reiciendis magnam iure voluptatibus, aliquam iusto tenetur id magni, beatae provident alias. Voluptates, quibusdam neque perspiciatis dolorem repellat ab incidunt cumque, nam exercitationem blanditiis magni.</p>
+                    <p class="learnMore-text"></p>
                     <div class="learnMore-btn">
                         <button class="btn-style btn-more">LEARN MORE</button>
-                        <button class="btn-style btn-play">X</button>
+                        <button class="btn-style btn-play"><i class="fas fa-play"></i></button>
                     </div>
                </div>
             </section>

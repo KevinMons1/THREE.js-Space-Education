@@ -10,21 +10,35 @@ export const myEasing = CustomEase.create("curstom", "M0,0 C0.476,0 0.926,0.912 
 
 const nextPlanetNameRight = document.querySelector(".nextPlanet-name-right")
 const nextPlanetNameLeft = document.querySelector(".nextPlanet-name-left")
-const btnNextPlanetLeft = document.querySelector(".nextPlanet-left")
-const btnNextPlanetRight = document.querySelector(".nextPlanet-right")
+const btnNextPlanetLeft = document.querySelectorAll(".btnNextPlanetLeft")
+const btnNextPlanetRight = document.querySelectorAll(".btnNextPlanetRight")
 const titleH2 = document.querySelector(".title-h2")
 const titleText = document.querySelector(".title-text")
 const learnMoreContent = document.querySelector(".learnMore-content")
+const btnGetStarted = document.querySelector(".getStarted")
 let animationActive = false // antiSpam
 let firstCallWithLoad = true
 
 export const initMain = () => {
     // Animation next planet
-    btnNextPlanetLeft.addEventListener("click", () => callNextPlanet("right"))
-    btnNextPlanetRight.addEventListener("click", () => callNextPlanet("left"))
+    btnNextPlanetLeft[0].addEventListener("click", () => callNextPlanet("right"))
+    btnNextPlanetLeft[1].addEventListener("click", () => callNextPlanet("right"))
+    btnNextPlanetRight[0].addEventListener("click", () => callNextPlanet("left"))
+    btnNextPlanetRight[1].addEventListener("click", () => callNextPlanet("left"))
     window.addEventListener("keydown", e => {
        if (e.key === "ArrowRight") callNextPlanet("left")
        else if (e.key === "ArrowLeft") callNextPlanet("right")
+    })
+
+    btnGetStarted.addEventListener("click", () => {
+        if (!animationActive) {
+            animationActive = true
+            planetsAnimationScroll("top")
+            goToSection(1, "top")
+            setTimeout(() => {
+                animationActive = false
+            }, 1000)
+        }
     })
 
     // Setup for scroll snip
@@ -61,13 +75,14 @@ const callNextPlanet = (direction) => {
 }
 
 const animationSwitchPlanets = (direction) => {
-    const savePositionChild = modelgroup.children
+    gsap.set(".wrapper", { overflowY: "hidden" })
+
+    let savePositionChild = modelgroup.children
+    let savePositionNormalize = []
+    let modelLength = modelgroup.children.length
     let leftChild = null
     let rightChild = null
     let centerChild = 0
-    let modelLength = modelgroup.children.length
-
-    // console.log(modelgroup.children[0].positionNormalize)
 
     // Know who is a next right and left planet
     for (let i = 0; i < modelLength; i++) {
@@ -103,12 +118,16 @@ const animationSwitchPlanets = (direction) => {
     // Hide for text animation
     hideText()
 
+    // Switch position
     modelgroup.children.forEach((child, i) => {
-        let lastChild = savePositionChild[direction === "right" ? i + 1 : i - 1]
+        // Check what position child will receive for it new position
+        let index = direction === "right" ? i + 1 : i - 1
+        let lastChild = savePositionChild[index]
 
         // Search last object for switch to first
         if (lastChild === undefined) {
-            lastChild = savePositionChild[direction === "right" ? 0 : modelgroup.children.length - 1]
+            index = direction === "right" ? 0 : modelgroup.children.length - 1
+            lastChild = savePositionChild[index]
         }      
                 
         // Next name
@@ -143,16 +162,19 @@ const animationSwitchPlanets = (direction) => {
             ease: Power1.easeInOut
         })
 
-        // save positions
-        child.positionNormalize = {
-            x: lastChild.positionNormalize.x,
-            y: lastChild.positionNormalize.y,
-            z: lastChild.positionNormalize.z
-        }
+        savePositionNormalize.push(lastChild.positionNormalize)
+    })
+
+    // Change all positionNormalize
+    modelgroup.children.forEach((child, i) => {
+        child.positionNormalize = savePositionNormalize[i]
     })
 
     showText()
-    // console.log(modelgroup.children[0].positionNormalize)
+    
+    setTimeout(() => {
+        gsap.set(".wrapper", { overflowY: "auto" })
+    }, 1000);
 }
 
 const hideText = () => {
@@ -180,7 +202,7 @@ const hideText = () => {
     })
 }
 
-const showText = (text) => {
+const showText = () => {
     // Show for text animation
     gsap.to(nextPlanetNameLeft, {
         filter: "blur(0px)",
@@ -222,14 +244,14 @@ const showText = (text) => {
 const goToSection = (i, direction) => {
     gsap.set(".wrapper", { overflowY: "hidden" })
 
-    const decalage = i === 0 ? -50 : 50 // for correct a little decalage with the scrollbar
+    const offset = i === 0 ? -50 : 50 // for correct a litle offset with the scrollbar
 
     gsap.to(".wrapper", {
         scrollTo: {
-            y: i * window.innerHeight + decalage,
+            y: i * window.innerHeight + offset,
             autoKill: false
         },
-        duration: 1,
+        duration: 0.75,
         overwrite: true,
         ease: myEasing,
         onComplete: () => gsap.set(".wrapper", { overflowY: "auto" })
@@ -239,7 +261,7 @@ const goToSection = (i, direction) => {
         gsap.from(learnMoreContent, {
             filter: "blur(15px)",
             opacity: 0,
-            duration: 1.25,
+            duration: 1,
             ease: Power1.easeInOut
         })
     }

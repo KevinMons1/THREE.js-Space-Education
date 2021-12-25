@@ -1,0 +1,146 @@
+@media screen and (max-width: 1200px) {
+    .nextPlanet-content {
+        &.nextPlanet-left {
+            .nextPlanet-name {
+                transform: translate(50px)!important;
+            }
+        }
+        
+        &.nextPlanet-right {
+            .nextPlanet-name {
+                transform: translate(-50px)!important;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 950px) {
+    .title-content {
+        width: 500px!important;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    header {
+        position: fixed;
+        top: 0;
+        left: 50%;
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: #061222;
+        -webkit-box-shadow: 0px 27px 49px 17px #061222; 
+        box-shadow: 0px 27px 49px 17px #061222;
+        color: #fff;
+        font-family: $poppins;
+        transform: translateX(-50%);
+        z-index: 11;
+    
+        .header-line {
+            display: none;
+        }
+    
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+            width: 100%;
+            padding: 20px;
+    
+            p {
+                font-weight: bold;
+            }
+        
+            span {
+                color: #369EE3;
+            }
+        
+            nav {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                height: 100%;
+        
+                ul {
+                    display: flex;
+                    flex-direction: column!important;
+                    justify-content: space-around;
+                    align-items: flex-start;
+                    height: 100%;
+        
+                    li {
+                        font-size: 15px;
+                        margin: 0 30px;
+                        list-style: none;
+        
+                        a {
+                            position: relative;
+                            text-decoration: none;
+                            color: #fff;
+                            transition: 0.2s;
+        
+                            &.nav-active::after {
+                                content: "";
+                                left: 50%;
+                                top: calc(100% + 22px);
+                                position: absolute;
+                                width: 100px;
+                                height: 3px;
+                                background-color: #56bfdf;
+                                border-radius: 2px;
+                                transform: translateX(-50%);
+                                z-index: 11;
+                            }
+    
+                            &:hover {
+                                -webkit-text-shadow: 0 0 4px #C5D8EF; 
+                                text-shadow: 0 0 4px #C5D8EF;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .title-content {
+        width: 300px!important;
+    }
+
+    .learnMore-content {
+        width: 100%!important;
+        display: flex;
+        justify-content: center;
+        align-items: center!important;
+        flex-direction: column;
+        margin-left: 0!important;
+    }
+
+    .learnMore-text {
+        background-color: #061222!important;
+    }
+
+    h3 {
+        font-size: 18px!important;
+    }
+
+    h4 {
+        font-size: 50px!important;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    h1 {
+        font-size: 18px!important;
+    }
+
+    h2 {
+        font-size: 50px!important;
+    }
+    
+    .nextPlanet-name {
+        display: none;
+    }
+}

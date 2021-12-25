@@ -1,6 +1,7 @@
+import * as THREE from "three"
 import { camera } from "./camera"
-import { getPositionInRelationToScreen, modelgroup } from "./model"
 import { renderer } from "./renderer"
+import { getPositionInRelationToScreen, modelgroup } from "./model"
 
 export let sizes = {}
 
@@ -21,21 +22,18 @@ export const initSize = () => {
         camera.updateProjectionMatrix()
 
         // Update models
-        givePosition()
+        modelgroup.children.forEach((child, i) => {
+            if (child.sectionMore) {
+                child.screenChanged = true
+            } else {
+                const newPosition = getPositionInRelationToScreen(child.positionNormalize)
+                child.position.set(newPosition.x, newPosition.y, child.positionNormalize.z)
+            }
+        })
     
         // Update renderer
         renderer.setSize(sizes.width, sizes.height)
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
     })
 }
-
-export const givePosition = () => {
-    modelgroup.children.forEach((child, i) => {
-        if (!child.sectionMore) {
-            const position = getPositionInRelationToScreen(child.positionNormalize)
-            child.position.set(position.x, position.y, child.positionNormalize.z)
-        }
-    })
-}
-
 

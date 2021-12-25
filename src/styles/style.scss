@@ -94,6 +94,7 @@ header {
                         position: relative;
                         text-decoration: none;
                         color: #fff;
+                        transition: 0.2s;
     
                         &.nav-active::after {
                             content: "";
@@ -106,6 +107,11 @@ header {
                             border-radius: 2px;
                             transform: translateX(-50%);
                             z-index: 11;
+                        }
+
+                        &:hover {
+                            -webkit-text-shadow: 0 0 4px #C5D8EF; 
+                            text-shadow: 0 0 4px #C5D8EF;
                         }
                     }
                 }
@@ -169,6 +175,7 @@ main {
                 font-weight: lighter;
                 letter-spacing: 3px;
                 font-family: $baskerville;
+                font-size: 11px;
             }
 
         }
@@ -177,7 +184,7 @@ main {
             left: 0;
 
             .nextPlanet-name {
-                transform: translateX(125px);
+                transform: translateX(150px);
             }
         }
         
@@ -185,13 +192,13 @@ main {
             left: 100%;
 
             .nextPlanet-name {
-                transform: translateX(-125px);
+                transform: translateX(-150px);
             }
         }
     }
     
     .section-title {
-        width: 100%;
+        width: 100vw;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -199,6 +206,10 @@ main {
         color: #fff;
 
         .title-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -227,9 +238,28 @@ main {
                 margin-bottom: 75px;
             }
 
-            button {
-                padding: 15px 45px;
-                border-radius: 30px;
+            .title-btn-content {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+
+                .getStarted {
+                    padding: 15px 45px;
+                    border-radius: 30px;
+                }
+
+                .btn-change {
+                    padding: 10px;
+                    border-radius: 50%;
+                    border: none;
+                    cursor: pointer;
+                    transition: 0.2s;
+
+                    &:hover {
+                        opacity: 0.6;
+                    }
+                }
             }
         }
 
@@ -249,13 +279,14 @@ main {
             justify-content: center;
             align-items: flex-start;
             flex-direction: column;
-            margin-left: 100px;
+            margin-left: 50px;
             color: #fff;
 
             h3 {
                 font-family: $poppins;
                 font-weight: lighter;
                 letter-spacing: 3px;
+                text-transform: uppercase;
             }
     
             h4 {
@@ -267,10 +298,12 @@ main {
             }
     
             p {
+                height: 30vh;
                 width: 80%;
                 margin-bottom: 50px;
                 font-family: $poppins;
                 font-size: 15px;
+                overflow-y: auto;
                 opacity: 0.9;
             }
     
