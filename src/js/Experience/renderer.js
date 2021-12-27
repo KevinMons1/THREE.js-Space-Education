@@ -2,7 +2,7 @@ import * as THREE from "three"
 import { canvas, scene, active, gui } from "./world"
 import { sizes } from "./sizes"
 import { camera } from "./camera"
-import { EffectComposer } from "three/examples/jsm/postprocessing/Effectcomposer"
+import * as EffectComposer from "three/examples/jsm/postprocessing/Effectcomposer"
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass"
 import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass"
 
@@ -35,7 +35,7 @@ export const initRenderer = () => {
     )
 
     // Post-processing
-    composer = new EffectComposer(renderer, renderTarget)
+    composer = new EffectComposer.EffectComposer(renderer, renderTarget)
     composer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
     composer.setSize(sizes.width, sizes.height)
     composer.addPass(new RenderPass(scene, camera))
