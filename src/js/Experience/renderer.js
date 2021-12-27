@@ -2,9 +2,9 @@ import * as THREE from "three"
 import { canvas, scene, active, gui } from "./world"
 import { sizes } from "./sizes"
 import { camera } from "./camera"
-import { EffectComposer } from "three/examples/jsm/postprocessing/effectcomposer"
-import { RenderPass } from "three/examples/jsm/postprocessing/renderpass"
-import { UnrealBloomPass } from "three/examples/jsm/postprocessing/unrealbloompass"
+import { EffectComposer } from "three/examples/jsm/postprocessing/Effectcomposer"
+import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass"
+import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass"
 
 export let renderer = null
 export let composer = null
