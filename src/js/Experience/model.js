@@ -5,10 +5,11 @@ import { scene } from "./world"
 import { loadingManager } from "./loading"
 import { camera } from "./camera"
 import { myEasing } from "../main"
+import { apparition } from "../index"
 
 // Export
-export let modelgroup = new THREE.Group()
-export let planetsPosition = [
+export const modelgroup = new THREE.Group()
+export const planetsPosition = [
     {x: 0, y: -0.2, z: 8.5},
     {x: 1, y: 0, z: 0},
     {x: 0, y: 0, z: -100},
@@ -23,7 +24,6 @@ export let planetsPosition = [
 const learnMoreText = document.querySelector(".learnMore-text")
 const learnMoreName = document.querySelector(".learnMore-name")
 const learnMoreTitle = document.querySelector(".learnMore-title")
-const colors = ["#a83232", "#b06035", "#242423", "#8da832", "#082e00", "#2ba675", "#282ca6", "#8f2aa8"]
 const names = ["EARTH", "MARS", "SUN", "VENUS", "URANUS", "MERCURY", "SATURN", "NEPTUNE"]
 const littleDescriptions = [
     `Learn more about this facinating miracle that we call our home, Planet Earth. Course enrollment starts today. Early Bird tickets typically last a week, don't miss out!`,
@@ -48,88 +48,55 @@ const bigDescriptions = [
 const nickNames = [
     "The blue planet", "The red planet", "The light", "Shepherd's Star", "Planet lying down", "Messenger of the gods", "Lord of the Rings", "Twin of uranus"
 ]
+let models = [null, null, null, null, null, null, null, null] // I prepar a array because asyn/await not working and give me a error
 
 // Download model
 export const initModel = () => {
-    // const earthModel = loadModel(
-    //     "model/planets/earth/scene.gltf", // rouge
-    //     0.2,
-    //     planetsPosition[0]
-    //  )
-    // const marsModel = loadModel(
-    //     "model/planets/mars/scene.gltf", // brun/orange
-    //     0.01,
-    //     planetsPosition[1]
-    // )
-    // const sunModel = loadModel(
-    //     "model/planets/sun/scene.gltf",  // gris
-    //     0.04,
-    //     planetsPosition[2]
-    // )
-    // const venusModel = loadModel(
-    //     "model/planets/venus/scene.gltf",  // vert pomme
-    //     0.96,
-    //     planetsPosition[3]
-    // )
-    // const uranusModel = loadModel(
-    //     "model/planets/uranus/scene.gltf", // kaki
-    //     0.96,
-    //     planetsPosition[4]
-    // )
-    // const mercuryModel = loadModel(
-    //     "model/planets/mercury/scene.gltf", // turquoise
-    //     0.96,
-    //     planetsPosition[5]
-    // )
-    // const saturnModel = loadModel(
-    //     "model/planets/saturn/scene.gltf", // bleu foncé
-    //     0.96,
-    //     planetsPosition[6]
-    // )
-    // const neptuneModel = loadModel(
-    //     "model/planets/neptune/scene.gltf", // rose
-    //     0.96,
-    //     planetsPosition[7]
-    // )
-
-    for (let i = 0; i < colors.length; i++) {
-        createSphere(colors[i], planetsPosition[i], names[i], littleDescriptions[i], bigDescriptions[i], nickNames[i])
-    }
- 
-    setTimeout(() => {
-        givePosition()
-    }, 100)
-
-    scene.add(modelgroup)
+    const earthModel = loadModel("model/planets/earth/scene.gltf", 0.2, 0)
+    const marsModel = loadModel("model/planets/mars/scene.gltf", 0.01, 1)
+    const sunModel = loadModel("model/planets/sun/scene.gltf", 0.4, 2)
+    const venusModel = loadModel("model/planets/venus/scene.gltf",  0.5, 3)
+    const uranusModel = loadModel("model/planets/uranus/scene.gltf", 0.9, 4)
+    const mercuryModel = loadModel("model/planets/mercury/scene.gltf", 0.9, 5)
+    const saturnModel = loadModel("model/planets/saturn/scene.gltf", 0.01, 6)
+    const neptuneModel = loadModel("model/planets/neptune/scene.gltf", 0.91, 7)
 }
 
-// const loadModel = (path, scale, position) => {
-//     const gltfLoader = new GLTFLoader(loadingManager)
-//     gltfLoader.load(path, (gltf) => {  
-//         const pos = getPositionInRelationToScreen(position)
-//         console.log(pos)
+const loadModel = (path, scale, i) => {
+    const gltfLoader = new GLTFLoader(loadingManager)
 
-//         gltf.scene.scale.set(scale, scale, scale)
-//         gltf.scene.position.set(pos.x, pos.y, position.z)
-//         gltf.scene.positionNormalize = position
-//         modelgroup.add(gltf.scene)
-//     })
-// }
+    gltfLoader.load(path, (gltf) => {  
+        const pos = getPositionInRelationToScreen(planetsPosition[i])
 
-const createSphere = (color, position, name, littleDescription, bigDescription, nickName) => {
-    const geometry = new THREE.SphereBufferGeometry(1, 32, 100)
-    const material = new THREE.MeshBasicMaterial({ color: color })
+        gltf.scene.scale.set(scale, scale, scale)
+        gltf.scene.position.set(pos.x, pos.y, planetsPosition[i].z)
+        gltf.scene.positionNormalize = planetsPosition[i] // Position between 0 and -1 for placed according to the screen
+        gltf.scene.name = names[i] // name
+        gltf.scene.littleDescription = littleDescriptions[i] // description for the first section
+        gltf.scene.bigDescription = bigDescriptions[i] // description for the second section
+        gltf.scene.nickName = nickNames[i] // nickname for the second section
+        gltf.scene.screenChanged = false // now if screen changed when user was in the second section for change when user back to first section
+        gltf.scene.sectionMore = false // stop some fonction if user is in the second section
 
-    const mesh = new THREE.Mesh(geometry, material)
-    mesh.positionNormalize = position // Position between 0 and -1 for placed according to the screen
-    mesh.name = name // name
-    mesh.littleDescription = littleDescription // description for the first section
-    mesh.bigDescription = bigDescription // description for the second section
-    mesh.nickName = nickName // nickname for the second section
-    mesh.screenChanged = false // now if screen changed when user was in the second section for change when user back to first section
-    mesh.sectionMore = false // stop some fonction if user is in the second section
+        // modelgroup.add(gltf.scene)
+        models[i] = gltf.scene
+        const checkAllLoaded = models.includes(null)
 
-    modelgroup.add(mesh)
+        if (!checkAllLoaded) {
+            spawnModelLoaded()
+        }
+    })
+}
+
+const spawnModelLoaded = () => {
+    models.forEach((model, i) => {
+        modelgroup.add(model)
+        
+        if (i === models.length - 1) {
+            scene.add(modelgroup)
+            apparition()
+        }
+    })
 }
 
 export const planetsAnimationScroll = (direction) => {

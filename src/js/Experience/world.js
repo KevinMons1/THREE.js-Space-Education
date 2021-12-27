@@ -5,7 +5,7 @@ import { initSize } from "./sizes"
 import { initCamera, camera } from "./camera"
 import { composer, initRenderer } from "./renderer"
 import { initLight } from "./light"
-import { initModel } from "./model"
+import { initModel, modelgroup } from "./model"
 
 export const canvas = document.querySelector(".weblg1")
 export let scene = null
@@ -23,11 +23,6 @@ export const initWorld = () => {
     //-------------------------------------------------------------------------
     // Init world
     //-------------------------------------------------------------------------
-
-    // const g = new THREE.BoxBufferGeometry(1, 1, 1)
-    // const m = new THREE.MeshBasicMaterial()
-    // const mes = new THREE.Mesh(g, m)
-    // scene.add(mes)
     
     initSize()
     initCamera()
@@ -41,20 +36,18 @@ export const initWorld = () => {
     //-------------------------------------------------------------------------
     // Update
     //-------------------------------------------------------------------------
-    
-    const clock = new THREE.Clock()
-    
+        
     const update = () => {
-        const elapsedTime = clock.getElapsedTime()
 
         // Controls
         controls.update()
 
-        // Light
-        // if (pointLight !== null) {
-        //     pointLight.position.x = Math.cos(elapsedTime * 0.5) * 15
-        //     pointLight.position.z = Math.sin(elapsedTime * 0.5) * 15
-        // }
+        // Models
+        modelgroup.children.forEach(model => {
+            if (model.position.z >= 0) {
+                model.rotation.y += 0.001
+            }
+        })
     
         // Render
         // renderer.render(scene, camera)

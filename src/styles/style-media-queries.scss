@@ -21,23 +21,20 @@
 }
 
 @media screen and (max-width: 768px) {
+    .header-hamburger {
+        display: block;
+    }
+
     header {
         position: fixed;
         top: 0;
-        left: 50%;
-        width: 50%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        left: 0;
+        width: 250px;
+        height: 100vh;
+        justify-content: flex-start;
         background-color: #061222;
-        -webkit-box-shadow: 0px 27px 49px 17px #061222; 
-        box-shadow: 0px 27px 49px 17px #061222;
-        color: #fff;
-        font-family: $poppins;
-        transform: translateX(-50%);
-        z-index: 11;
-    
+        transform: translateX(-120%);
+
         .header-line {
             display: none;
         }
@@ -49,56 +46,34 @@
             align-items: flex-start;
             width: 100%;
             padding: 20px;
-    
-            p {
-                font-weight: bold;
-            }
+
+            .header-logo {
+                font-size: 20px;
+                margin-bottom: 15px;
+                width: 100%;
+                text-align: center;
+            }    
         
-            span {
-                color: #369EE3;
-            }
-        
-            nav {
-                display: flex;
-                justify-content: space-between;
-                align-items: flex-start;
-                height: 100%;
-        
+            nav {        
                 ul {
-                    display: flex;
                     flex-direction: column!important;
-                    justify-content: space-around;
                     align-items: flex-start;
-                    height: 100%;
         
                     li {
-                        font-size: 15px;
-                        margin: 0 30px;
-                        list-style: none;
+                        font-size: 20px;
+                        margin: 15px 0;
         
                         a {
-                            position: relative;
-                            text-decoration: none;
-                            color: #fff;
-                            transition: 0.2s;
-        
                             &.nav-active::after {
                                 content: "";
-                                left: 50%;
-                                top: calc(100% + 22px);
-                                position: absolute;
-                                width: 100px;
-                                height: 3px;
-                                background-color: #56bfdf;
-                                border-radius: 2px;
-                                transform: translateX(-50%);
-                                z-index: 11;
+                                top: calc(100%);
+                                width: 75px;
                             }
-    
-                            &:hover {
-                                -webkit-text-shadow: 0 0 4px #C5D8EF; 
-                                text-shadow: 0 0 4px #C5D8EF;
-                            }
+                        }
+
+                        button {
+                            width: 100px;
+                            height: 40px;
                         }
                     }
                 }
@@ -111,6 +86,7 @@
 
     .learnMore-content {
         width: 100%!important;
+        margin-top: 0!important;
         display: flex;
         justify-content: center;
         align-items: center!important;

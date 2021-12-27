@@ -74,10 +74,10 @@ const callNextPlanet = (direction) => {
     }
 }
 
-const animationSwitchPlanets = (direction) => {
+export const animationSwitchPlanets = (direction) => {
     gsap.set(".wrapper", { overflowY: "hidden" })
 
-    let savePositionChild = modelgroup.children
+    let saveChild = modelgroup.children
     let savePositionNormalize = []
     let modelLength = modelgroup.children.length
     let leftChild = null
@@ -122,20 +122,18 @@ const animationSwitchPlanets = (direction) => {
     modelgroup.children.forEach((child, i) => {
         // Check what position child will receive for it new position
         let index = direction === "right" ? i + 1 : i - 1
-        let lastChild = savePositionChild[index]
 
         // Search last object for switch to first
-        if (lastChild === undefined) {
+        if (saveChild[index] === undefined) {
             index = direction === "right" ? 0 : modelgroup.children.length - 1
-            lastChild = savePositionChild[index]
         }      
                 
         // Next name
-        if (lastChild.position.z > 1) {
+        if (saveChild[index].position.z > 1) {
             if (direction === "right") {
                 // Wait for text animation
                 setTimeout(() => {
-                    nextPlanetNameRight.innerHTML = lastChild.name
+                    nextPlanetNameRight.innerHTML = saveChild[index].name
                     nextPlanetNameLeft.innerHTML = modelgroup.children[leftChild].name
                 }, 500)
                 
@@ -143,7 +141,7 @@ const animationSwitchPlanets = (direction) => {
                 // Wait for text animation
                 setTimeout(() => {
                     nextPlanetNameRight.innerHTML = modelgroup.children[rightChild].name
-                    nextPlanetNameLeft.innerHTML = lastChild.name
+                    nextPlanetNameLeft.innerHTML = saveChild[index].name
                 }, 500)
             }
 
@@ -153,16 +151,18 @@ const animationSwitchPlanets = (direction) => {
             }, 500);
         }
         
-        // Change planets position
-        gsap.to(child.position, {
-            x: lastChild.position.x,
-            y: lastChild.position.y,
-            z: lastChild.position.z,
-            duration: 1,
-            ease: Power1.easeInOut
-        })
+        if (!(child.position.z < 0 && saveChild[index].position < 0)) {
+            // Change planets position
+            gsap.to(child.position, {
+                x: saveChild[index].position.x,
+                y: saveChild[index].position.y,
+                z: saveChild[index].position.z,
+                duration: 1,
+                ease: Power1.easeInOut
+            })
+        }
 
-        savePositionNormalize.push(lastChild.positionNormalize)
+        savePositionNormalize.push(saveChild[index].positionNormalize)
     })
 
     // Change all positionNormalize

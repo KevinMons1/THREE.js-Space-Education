@@ -18,7 +18,7 @@ export const initRenderer = () => {
     renderer.autoClear = true
     renderer.physicallyCorrectLights = true
     renderer.toneMapping = THREE.LinearToneMapping 
-    renderer.toneMappingExposure = 0.75
+    renderer.toneMappingExposure = 0.85
     renderer.setSize(sizes.width, sizes.height)
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
@@ -43,8 +43,8 @@ export const initRenderer = () => {
     // Bloom around object
     // For activate the transparant https://github.com/mrdoob/three.js/issues/14104#issuecomment-429664412
     const unrealBloomPass = new UnrealBloomPass()
-    unrealBloomPass.strength = 0.7
-    unrealBloomPass.radius = 1
+    unrealBloomPass.strength = 0.2
+    unrealBloomPass.radius = 1.9
     composer.addPass(unrealBloomPass)
 
     if (active) {
