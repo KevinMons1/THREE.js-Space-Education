@@ -244,7 +244,7 @@ const showText = () => {
 const goToSection = (i, direction) => {
     gsap.set(".wrapper", { overflowY: "hidden" })
 
-    const offset = i === 0 ? -50 : 50 // for correct a litle offset with the scrollbar
+    const offset = i === 0 ? -200 : 200 // for correct a litle offset with the scrollbar
 
     gsap.to(".wrapper", {
         scrollTo: {

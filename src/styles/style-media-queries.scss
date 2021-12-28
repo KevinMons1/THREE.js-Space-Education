@@ -95,6 +95,8 @@
     }
 
     .learnMore-text {
+        max-height: 50vh;
+        overflow: auto;
         background-color: #061222!important;
     }
 

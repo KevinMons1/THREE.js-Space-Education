@@ -6,7 +6,6 @@ import { initHeader } from "./header"
 const alert = document.querySelector(".alert")
 const alertClose = document.querySelector(".alert-close")
 const itemsBlocked = document.querySelectorAll(".items-blocked")
-const btnNextPlanetLeft = document.querySelectorAll(".btnNextPlanetLeft")
 
 // Create world 3D
 initWorld()
