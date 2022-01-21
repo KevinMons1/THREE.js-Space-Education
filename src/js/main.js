@@ -6,7 +6,8 @@ import { modelgroup, planetsAnimationScroll } from "./Experience/model"
 gsap.registerPlugin(ScrollTrigger, CustomEase, ScrollToPlugin)
 ScrollTrigger.defaults({ scroller: ".wrapper" })
 
-export const myEasing = CustomEase.create("curstom", "M0,0 C0.476,0 0.926,0.912 1,0.99 ")
+export const myEasing = CustomEase.create("custom", "M0,0 C0.476,0 0.926,0.912 1,0.99 ")
+// export const myEasing = CustomEase.create("curstom", "M0,0 C0.476,0 0.926,0.912 1,0.99 ")
 
 const nextPlanetNameRight = document.querySelector(".nextPlanet-name-right")
 const nextPlanetNameLeft = document.querySelector(".nextPlanet-name-left")
@@ -42,23 +43,19 @@ export const initMain = () => {
     })
 
     // Setup for scroll snip
-    gsap.utils.toArray("section").forEach((section, i) => {
+    gsap.utils.toArray("section").forEach(section => {
         ScrollTrigger.create({
             trigger: section,
+            end: "center center",
             onEnter: () => {
                 if (!firstCallWithLoad) {
                     planetsAnimationScroll("bottom")
-                    goToSection(i, "bottom")
+                    goToSection("bottom")
                 } else firstCallWithLoad = false
-            } 
-        })
-
-        ScrollTrigger.create({
-            trigger: section,
-            start: "bottom bottom",
+            },
             onEnterBack: () => {
                 planetsAnimationScroll("top")
-                goToSection(i, "top")
+                goToSection("top")
             }
         })
     })
@@ -241,14 +238,12 @@ const showText = () => {
 }
 
 // Animation for change section
-const goToSection = (i, direction) => {
+const goToSection = (direction) => {
     gsap.set(".wrapper", { overflowY: "hidden" })
-
-    const offset = i === 0 ? -200 : 200 // for correct a litle offset with the scrollbar
 
     gsap.to(".wrapper", {
         scrollTo: {
-            y: i * window.innerHeight + offset,
+            y: direction === "top" ? -200 : window.innerHeight + 200,
             autoKill: false
         },
         duration: 0.75,
