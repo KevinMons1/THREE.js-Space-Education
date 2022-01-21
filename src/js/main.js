@@ -46,7 +46,8 @@ export const initMain = () => {
     gsap.utils.toArray("section").forEach(section => {
         ScrollTrigger.create({
             trigger: section,
-            end: "center center",
+            // markers: true,
+            end: "center bottom",
             onEnter: () => {
                 if (!firstCallWithLoad) {
                     planetsAnimationScroll("bottom")
